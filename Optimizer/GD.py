@@ -6,3 +6,6 @@ class Optimizer():
 
     def train(self, X, y, lr=0.1):
         pass
+
+    def test(self, X, y):
+        pass
