@@ -1,9 +1,12 @@
 import numpy as np
 import kagglehub
 import pandas as pd
+from Models.NN import NN
 from Models.FFN import FFN
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from DataLoader.DataLoader import DataLoader
+from DataLoader.Preprocess import min_max
+from Optimizer.GD import Optimizer
 
 path = kagglehub.dataset_download("uciml/iris")
 
@@ -23,40 +26,18 @@ for element in range(y.shape[0]):
 
 y = np.eye(3)[y.astype(int)]
 
-max = np.max(X, axis=0, keepdims=True)
-min = np.min(X, axis=0, keepdims=True)
+X = min_max(X)
 
-X = (X - min)/(max - min)
+model = NN(4, 6, 3)
+model_2 = FFN([4, 6, 3])
 
-
-model = FFN(4, 6, 3)
 crossEntropy = CrossEntropyLoss()
-data = DataLoader(X[:120], y[:120])
+data = DataLoader(X[:125], y[:125])
 
-epochs = 50
-l = 0
+optimizer = Optimizer()
 
-for epoch in range(epochs):
-    for X, y in data:
-        logits = model.forward(X)
-        loss = crossEntropy.loss(logits, y)
+optimizer.train(model, crossEntropy, data, lr=0.01, epochs=100)
+optimizer.test(X, y, model, crossEntropy)
 
-        l += loss
-
-        grads = crossEntropy.backward(logits, y)
-        model.backward(grads)
-        model.update(lr=0.05)
-    print(f"Epoch: {epoch + 1}, Loss: {l/len(data)}")
-    l = 0
-
-print(X)
-
-out = model.forward(X)
-softmax = crossEntropy.softmax(out)
-
-pred = np.argmax(softmax, axis=1)
-true = np.argmax(y, axis=1)
-
-correct = pred == true
-accuracy = np.mean(correct)
-print(f"Accuracy: {accuracy}%")
+optimizer.train(model_2, crossEntropy, data, lr=0.01, epochs=100)
+optimizer.test(X, y, model_2, crossEntropy)

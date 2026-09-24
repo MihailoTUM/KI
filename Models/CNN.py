@@ -1,4 +1,5 @@
+import numpy as np
 import torch
 
-X = torch.rand(size=[2, 2])
+# CONVULSION + MAXING/POOLING + FFN
 
