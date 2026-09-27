@@ -1,5 +1,5 @@
-import numpy as np
 
-class Dropout():
+
+class RNN():
     def __init__(self):
         pass
