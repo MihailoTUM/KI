@@ -14,7 +14,7 @@ class CrossEntropyLoss():
 
     def backward(self, logits, y):
         probability = self.softmax(logits)
-        return probability - y
+        return (probability - y) / logits.shape[0]
 
     def loss(self, logits, y, eps=1e-05):
         probability = self.softmax(logits)

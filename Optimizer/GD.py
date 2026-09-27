@@ -11,17 +11,18 @@ class Optimizer():
             loss_epoch = 0
 
             for X_train, y_train in data_loader:
-                logits = model.forward(X_train)
+                logits = model.forward(X_train, training=True)
                 loss = loss_func.loss(logits, y_train)
                 loss_epoch += loss
                 grads = loss_func.backward(logits, y_train)
                 model.backward(grads)
                 model.update(lr)
+                model.reset()
 
             print(f"Epoch {epoch + 1}, Loss: {loss_epoch/len(data_loader)}")
 
     def test(self, X, y, model, loss_func):
-        output = model.forward(X)
+        output = model.forward(X, training=False)
         softmax = loss_func.softmax(output)
 
         pred = np.argmax(softmax, axis=1)
@@ -29,6 +30,6 @@ class Optimizer():
 
         correct = pred == true
         accuracy = np.mean(correct)
-        print(f"Acurracy: {accuracy}%")
+        print(f"Acurracy: {accuracy*100}%")
 
         return accuracy

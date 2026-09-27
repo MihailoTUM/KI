@@ -20,7 +20,7 @@ class NN():
     def reluDeriv(self, X):
         return (X > 0).astype(float)
 
-    def forward(self, X):
+    def forward(self, X, training=True):
         self.input = X
         out = X @ self.w_1 + self.b_1
         self.z1 = out

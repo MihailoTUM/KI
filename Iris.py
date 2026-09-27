@@ -39,5 +39,5 @@ optimizer = Optimizer()
 optimizer.train(model, crossEntropy, data, lr=0.01, epochs=100)
 optimizer.test(X, y, model, crossEntropy)
 
-optimizer.train(model_2, crossEntropy, data, lr=0.01, epochs=100)
+optimizer.train(model_2, crossEntropy, data, lr=0.01, epochs=125)
 optimizer.test(X, y, model_2, crossEntropy)
