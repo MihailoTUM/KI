@@ -11,6 +11,9 @@ class Linear(Component):
         self.weights_grads = np.zeros_like(self.weights)
         self.bias_grads = np.zeros_like(self.bias)
 
+        self.weights_velocity = np.zeros_like(self.weights)
+        self.bias_velocity = np.zeros_like(self.bias)
+
         self.input = 0
 
     def forward(self, X: NDArray) -> NDArray:
@@ -18,11 +21,15 @@ class Linear(Component):
         self.input = X
         return X @ self.weights + self.bias
 
-    def backward(self, grads: NDArray) -> NDArray:
+    def backward(self, grads: NDArray, momentum=0) -> NDArray:
         '''Pass-Down grads'''
         # X: (exp, input), w: (input, output), return: (exp, output)
+
         self.weights_grads = self.input.T @ grads
         self.bias_grads = np.sum(grads, axis=0, keepdims=False)
+
+        self.weights_velocity = momentum * self.weights_velocity + self.weights_grads
+        self.bias_velocity = momentum * self.bias_velocity + self.bias_grads
         
         return grads @ self.weights.T
 
@@ -31,5 +38,5 @@ class Linear(Component):
         self.bias_grads = np.zeros_like(self.bias)
 
     def update(self, lr=0.1):
-        self.weights -= lr * self.weights_grads
-        self.bias -= lr * self.bias_grads
+        self.weights -= lr * self.weights_velocity
+        self.bias -= lr * self.bias_velocity

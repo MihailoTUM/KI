@@ -17,5 +17,5 @@ class Relu(Component):
         self.input = X
         return self.activate(X)
 
-    def backward(self, grads: NDArray):
+    def backward(self, grads: NDArray, momentum):
         return grads * self.activateDeriv()

@@ -4,7 +4,7 @@ import kagglehub
 from Models.FFN import FFN
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from DataLoader.DataLoader import DataLoader
-from Optimizer.GD import Optimizer
+from Optimizer.SGD import SGD
 
 '''MNIST Dataset'''
 
@@ -28,7 +28,7 @@ data = DataLoader(X_train, y_train, batch=32)
 
 model = FFN([784, 128, 64, 10])
 loss = CrossEntropyLoss()
-optim = Optimizer()
+optim = SGD()
 
 optim.train(model, loss, data, lr=0.1, epochs=15)
 optim.test(X_test, y_test, model, loss)

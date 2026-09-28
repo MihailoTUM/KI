@@ -10,17 +10,17 @@ class MLP():
         self.layers = layers
         self.input = None
 
-    def forward(self, X: NDArray) -> NDArray:
+    def forward(self, X: NDArray, training=True) -> NDArray:
         self.input = out = X
 
         for layer in self.layers:
             out = layer.forward(out)
         return out
 
-    def backward(self, grads: NDArray) -> None:
+    def backward(self, grads: NDArray, momentum=0) -> None:
         out = grads
         for layer in reversed(self.layers):
-            out = layer.backward(out)
+            out = layer.backward(out, momentum)
 
     def update(self, lr=0.1):
         for layer in self.layers:

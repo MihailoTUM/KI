@@ -16,9 +16,11 @@ class Dropout(Component):
     def activateDeriv(self):
         return self.mask/(1 - self.p)
 
-    def forward(self, X: NDArray) -> NDArray:
+    def forward(self, X: NDArray, training=True) -> NDArray:
         self.input = X
-        return self.activate(X)
+        if training:
+            return self.activate(X)
+        return X
 
-    def backward(self, grads: NDArray):
+    def backward(self, grads: NDArray, momentum=0):
         return grads * self.activateDeriv()

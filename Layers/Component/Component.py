@@ -5,10 +5,10 @@ class Component():
     def __init__(self):
         pass
 
-    def forward(self, X: NDArray) -> NDArray:
+    def forward(self, X: NDArray, training=True) -> NDArray:
         pass
 
-    def backward(self, grads: NDArray) -> NDArray:
+    def backward(self, grads: NDArray, momentum=0) -> NDArray:
         pass
 
     def update(self, lr=0.1):

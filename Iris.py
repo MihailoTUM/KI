@@ -6,7 +6,7 @@ from Models.FFN import FFN
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from DataLoader.DataLoader import DataLoader
 from DataLoader.Preprocess import min_max
-from Optimizer.GD import Optimizer
+from Optimizer.SGD import SGD
 
 path = kagglehub.dataset_download("uciml/iris")
 
@@ -34,7 +34,7 @@ model_2 = FFN([4, 6, 3])
 crossEntropy = CrossEntropyLoss()
 data = DataLoader(X[:125], y[:125])
 
-optimizer = Optimizer()
+optimizer = SGD()
 
 optimizer.train(model, crossEntropy, data, lr=0.01, epochs=100)
 optimizer.test(X, y, model, crossEntropy)
