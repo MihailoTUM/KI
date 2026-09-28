@@ -35,7 +35,7 @@ class RNN():
                 self.weights_x_grads, self.weights_h_grads, self.weights_y_grads, self.bias_h_grads, self.bias_y_grads
             ))
 
-    def forward(self, X: NDArray) -> NDArray:
+    def forward(self, X: NDArray, training=False) -> NDArray:
         self.h = np.zeros((X.shape[1], self.n_hidden))
         h = self.h
         y = 0
@@ -46,7 +46,6 @@ class RNN():
         return y
 
     def backward(self, grads: NDArray) -> NDArray:
-        # (len, 1)
         _h_grads = np.zeros_like(self.h)
 
         for idx in range(self.len - 1, -1, -1):
@@ -63,21 +62,20 @@ class RNN():
         self.bias_h -= lr * self.bias_h_grads
 
     def reset(self):
-        self.weights_x_grads = np.zeros_like(self.weights_x)
-        self.weights_h_grads = np.zeros_like(self.weights_h)
-        self.weights_y_grads = np.zeros_like(self.weights_y)
+        self.weights_x_grads.fill(0)
+        self.weights_h_grads.fill(0)
+        self.weights_y_grads.fill(0)
+        self.bias_h_grads.fill(0)
+        self.bias_y_grads.fill(0)
 
-        self.bias_h_grads = np.zeros_like(self.bias_h)
-        self.bias_y_grads = np.zeros_like(self.bias_y)
-
-X = np.random.rand(10, 1, 8)
+# X = np.random.rand(10, 1, 8)
 
 
-model = RNN(8, 6, 4, len=10)
-out = model.forward(X)
+# # model = RNN(8, 6, 4, len=10)
+# # out = model.forward(X)
 
-grads = np.random.rand(10, 1, 4)
-model.backward(grads)
+# # grads = np.random.rand(10, 1, 4)
+# # model.backward(grads)
 
-model.update()
-model.reset()
+# # model.update()
+# # model.reset()

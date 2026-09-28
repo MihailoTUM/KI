@@ -18,8 +18,10 @@ class SGD(Optimizer):
             loss_epoch = 0
 
             for X_train, y_train in data_loader:
+                print("Hello")
                 logits = model.forward(X_train, training=True)
                 loss = loss_func.loss(logits, y_train)
+                print("loss:", loss)
                 loss_epoch += loss
                 grads = loss_func.backward(logits, y_train)
                 model.backward(grads, momentum)
