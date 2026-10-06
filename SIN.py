@@ -1,4 +1,4 @@
-from Models.RNN import RNN
+from RNN.RNN import RNN
 from Optimizer.SGD import SGD
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from Loss.MeanSquaredLoss import MeanSquaredLoss
