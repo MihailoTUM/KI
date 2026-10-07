@@ -1,6 +1,6 @@
 import numpy as np
 from numpy.typing import NDArray
-from Layers.Cell.Cell import Cell
+from RNN.Cell import Cell
 from typing import List
 
 class RNN():
