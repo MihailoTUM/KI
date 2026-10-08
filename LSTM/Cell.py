@@ -81,7 +81,7 @@ class Cell():
         self.f_gate = self.sigmoid(X @ self.w_f + _h @ self.u_f + self.b_f)
         self.i_gate = self.sigmoid(X @ self.w_i + _h @ self.u_i + self.b_i)
         self.o_gate = self.sigmoid(X @ self.w_o + _h @ self.u_o + self.b_o)
-        self.c_gate = self.sigmoid(X @ self.w_c + _h @ self.u_c + self.b_c)
+        self.c_gate = self.tanh(X @ self.w_c + _h @ self.u_c + self.b_c)
 
         self.c_state = self.f_gate * _c + self.i_gate * self.c_gate
         self.h_state = self.o_gate * self.tanh(self.c_state)
@@ -121,16 +121,16 @@ class Cell():
         self.u_i_grads += self._h.T @ (dL_di * self.sigmoidDeriv(self.i_gate))
         self.b_i_grads += np.sum(dL_di * self.sigmoidDeriv(self.i_gate), axis=0)
         
-        self.w_c_grads += self.X.T @ (dL_dc * self.sigmoidDeriv(self.c_gate))
-        self.u_c_grads += self._h.T @ (dL_dc * self.sigmoidDeriv(self.c_gate))
-        self.b_c_grads += np.sum(dL_dc * self.sigmoidDeriv(self.c_gate), axis=0)
+        self.w_c_grads += self.X.T @ (dL_dc * self.tanhDeriv(self.c_gate))
+        self.u_c_grads += self._h.T @ (dL_dc * self.tanhDeriv(self.c_gate))
+        self.b_c_grads += np.sum(dL_dc * self.tanhDeriv(self.c_gate), axis=0)
 
         dL_d_h = 0
         
         dL_d_h += (dL_df * self.sigmoidDeriv(self.f_gate)) @ self.u_f
         dL_d_h += (dL_di * self.sigmoidDeriv(self.i_gate)) @ self.u_i
         dL_d_h += (dL_do * self.sigmoidDeriv(self.o_gate)) @ self.u_o
-        dL_d_h += (dL_dc * self.sigmoidDeriv(self.c_gate)) @ self.u_c
+        dL_d_h += (dL_dc * self.tanhDeriv(self.c_gate)) @ self.u_c
 
         return (dL_dcell * self.f_gate, dL_d_h)
 
