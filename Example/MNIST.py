@@ -4,7 +4,7 @@ from Layers.Activation.Dropout import Dropout
 from Layers.Component.Component import Component
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from Optimizer.SGD import SGD
-from Models.MLP import MLP
+from NN.MLP import MLP
 from DataLoader.DataLoader import DataLoader
 from typing import List
 from numpy.typing import NDArray

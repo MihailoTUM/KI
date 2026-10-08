@@ -67,15 +67,3 @@ class RNN():
         self.weights_y_grads.fill(0)
         self.bias_h_grads.fill(0)
         self.bias_y_grads.fill(0)
-
-# X = np.random.rand(10, 1, 8)
-
-
-# # model = RNN(8, 6, 4, len=10)
-# # out = model.forward(X)
-
-# # grads = np.random.rand(10, 1, 4)
-# # model.backward(grads)
-
-# # model.update()
-# # model.reset()

@@ -80,16 +80,23 @@ class LSTM():
             ))
 
     def forward(self, X: NDArray):
+        self.X = X
         _c = np.zeros(shape=(X.shape[0], self.n_output))
         _h = np.zeros(shape=(X.shape[0], self.n_output))
 
         for i in range(self.len):
             _c, _h = self.layers[i].forward(X[:, i, :], _h, _c)
 
-        return
+        return _h
 
     def backward(self, grads: NDArray):
-        pass
+        _h_grads = grads
+        _c_grads = np.zeros(shape=(self.X.shape[0], self.n_output))
+
+        for idx in range(self.len - 1, -1, -1):
+            _h_grads, _c_grads = self.layers[idx].backward(_h_grads, _c_grads)
+
+        return _h_grads
 
     def update(self, lr=0.1):
         self.w_f -= lr * self.w_f_grads
