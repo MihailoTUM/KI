@@ -1,7 +1,7 @@
 import kagglehub
 import pandas as pd
 import numpy as np
-from Models.MLP import MLP
+from NN.NN import NN
 from Layers.Linear.Linear import Linear
 from Layers.Activation.Relu import Relu
 from Layers.Activation.Dropout import Dropout
@@ -86,7 +86,7 @@ y_train = price_log[:40000]
 
 data = DataLoader(X_train, y_train, batch=32)
 
-model = MLP([
+model = NN([
     Linear(15, 32),
     Relu(),
     Dropout(),

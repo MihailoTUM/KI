@@ -67,6 +67,6 @@ output = model.forward(X_test)
 plt.plot(y_test, label="echt")
 plt.plot(output.flatten(), label="Vorhersage", linestyle="--")
 plt.legend()
-plt.savefig(r"C:\KI\Example\LSTM\sinus.png", dpi=150)
+plt.savefig(r"C:\KI\Example\LSTM\sin.png", dpi=150)
 plt.show()
 

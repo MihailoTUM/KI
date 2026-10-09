@@ -1,11 +1,9 @@
 import numpy as np
 from Loss.Loss import Loss
 from DataLoader.DataLoader import DataLoader
-from Optimizer.Optimizer import Optimizer
 
-class SGD(Optimizer):
+class SGD():
     def __init__(self):
-        super().__init__()
         self.model = None
         self.loss_func = None
         self.data_loader = None

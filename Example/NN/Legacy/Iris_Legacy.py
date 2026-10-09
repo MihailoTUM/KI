@@ -1,8 +1,8 @@
 import numpy as np
 import kagglehub
 import pandas as pd
-from Models.NN import NN
-from Models.FFN import FFN
+from NN.NN import NN
+from NN.Legacy import FFN
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from DataLoader.DataLoader import DataLoader
 from DataLoader.Preprocess import min_max
