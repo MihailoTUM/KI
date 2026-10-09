@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import kagglehub
-from Models.FFN import FFN
+from NN.Legacy.FFN import FFN
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from DataLoader.DataLoader import DataLoader
 from Optimizer.SGD import SGD

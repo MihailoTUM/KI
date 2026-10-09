@@ -2,11 +2,11 @@ from Layers.Linear.Linear import Linear
 from Layers.Activation.Relu import Relu
 from Layers.Activation.Dropout import Dropout
 from Layers.Component.Component import Component
-from Models.MLP import MLP
+from NN.NN import NN
 from typing import List
 from numpy.typing import NDArray
 
-model = MLP([
+model = NN([
     Linear(784, 128),
     Relu(),
     Dropout(p=0.1),

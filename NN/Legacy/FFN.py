@@ -43,13 +43,11 @@ class FFN():
     def reluDeriv(self, X: NDArray):
         return (X > 0).astype(float)
 
-    # ''' WEITERMACH mit Tanh'''
+    def tanh(self, X: NDArray):
+        return np.tanh(X)
 
-    # def tanh(self, X: NDArray):
-    #     return np.tanh(X)
-
-    # def tanhDeriv(self, X: NDArray):
-    #     return
+    def tanhDeriv(self, X: NDArray):
+        return 1 - self.tanh(X)
 
     # Dropout (Regulisierung)
     def dropout(self, X: NDArray, p=0.5, training=True):
@@ -121,41 +119,3 @@ class FFN():
         for idx in range(len(self.weights)):
             self.weights_grads[idx] = np.zeros_like(self.weights[idx])
             self.bias_grads[idx] = np.zeros_like(self.bias[idx])
-
-dims = [
-    784, 128, 64, 10
-]
-
-"""
-    dims = [
-        ["relu", 784, p=0.2],
-        ["tanh", 128, p=0.5]
-    ]
-"""
-
-model = FFN(dims=dims)
-loss = CrossEntropyLoss()
-
-X = np.random.rand(2, 784)
-
-# for weight in model.get_weights():
-#     print(weight.shape)
-
-# for bias in model.get_bias():
-#     print(bias.shape)
-
-grads = np.random.rand(2, 10)
-
-out = model.forward(X)
-# print(out)
-
-model.backward(grads)
-
-
-# out = model.forward(X)
-# print(out)
-# print(out.shape)
-
-# l = loss.softmax(out)
-# print(l)
-# print(l.shape)

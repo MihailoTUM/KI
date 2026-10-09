@@ -4,14 +4,14 @@ from Layers.Activation.Dropout import Dropout
 from Layers.Component.Component import Component
 from Loss.CrossEntropyLoss import CrossEntropyLoss
 from Optimizer.SGD import SGD
-from NN.MLP import MLP
+from NN.NN import NN
 from DataLoader.DataLoader import DataLoader
 from typing import List
 from numpy.typing import NDArray
 import numpy as np
 import pandas as pd
 
-model = MLP([
+model = NN([
     Linear(784, 128),
     Relu(),
     Dropout(p=0.1),
